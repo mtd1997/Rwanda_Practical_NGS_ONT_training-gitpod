@@ -1,0 +1,12 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Start Docker
+    init: |
+      sudo service docker start
+    command: bash
+
+# Enable Docker-in-Docker
+features:
+  docker: true
