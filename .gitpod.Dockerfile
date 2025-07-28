@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update & install system dependencies
+# Install system packages including Docker
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
@@ -21,19 +21,20 @@ RUN apt-get update && apt-get install -y \
     openjdk-11-jdk \
     docker.io \
     samtools \
-    bcftools \
-    && apt-get clean
+    bcftools && \
+    apt-get clean
 
-# Install NanoPlot (pip)
+# Install NanoPlot
 RUN pip3 install NanoPlot
 
 # Install Porechop from source
 RUN cd /opt && \
     git clone https://github.com/rrwick/Porechop.git && \
     cd Porechop && \
-    python3 setup.py install
+    python3 setup.py install && \
+    ln -s /opt/Porechop/porechop-runner.py /usr/local/bin/porechop
 
-# Install Minimap2 from source
+# Install Minimap2
 RUN cd /opt && \
     git clone https://github.com/lh3/minimap2.git && \
     cd minimap2 && make && \
@@ -41,5 +42,3 @@ RUN cd /opt && \
 
 # Set working directory
 WORKDIR /workspace
-
-
