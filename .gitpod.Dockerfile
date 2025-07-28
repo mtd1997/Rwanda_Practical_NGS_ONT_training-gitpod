@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y \
     bcftools && \
     apt-get clean
 
-# Install NanoPlot
-RUN pip3 install NanoPlot
+# Install NanoPlot and gdown
+RUN pip3 install NanoPlot gdown
 
 # Install Porechop from source
 RUN cd /opt && \
