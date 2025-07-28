@@ -2,12 +2,13 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Download resources
-    init: bash scripts/download_resources.sh
-
   - name: Launch environment
     command: |
       echo "Training environment is ready."
-      echo "You can now explore the training notebooks or start running commands in the terminal."
+      echo "Explore training notebooks or run commands in the terminal."
       bash
 
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-toolsai.jupyter
