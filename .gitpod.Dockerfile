@@ -31,8 +31,7 @@ RUN pip3 install NanoPlot
 RUN cd /opt && \
     git clone https://github.com/rrwick/Porechop.git && \
     cd Porechop && \
-    python3 setup.py install && \
-    ln -s /opt/Porechop/porechop-runner.py /usr/local/bin/porechop
+    python3 setup.py install
 
 # Install Minimap2
 RUN cd /opt && \
