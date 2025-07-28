@@ -38,3 +38,13 @@ When the workspace starts, a script will download:
 - Clair3 models
 
 All stored in folders: reference_genome_data/, tools/snpEff/, models/
+
+---
+
+### Run the Jupyter Notebook in Gitpod
+
+1. Open a terminal in Gitpod (Ctrl+Shift+` or from the "+" button).
+2. Launch Jupyter Lab:
+   ```bash
+   jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
