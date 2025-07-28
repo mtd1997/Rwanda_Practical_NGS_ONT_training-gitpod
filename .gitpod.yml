@@ -3,7 +3,7 @@ image:
 
 tasks:
   - name: Download resources
-    init: bash scripts/download_all_resources.sh
+    init: bash scripts/download_resources.sh
 
   - name: Launch environment
     command: |
