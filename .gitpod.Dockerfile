@@ -47,20 +47,16 @@ RUN cd /opt && \
     wget https://downloads.python.org/pypy/pypy3.9-v7.3.13-linux64.tar.bz2 && \
     tar -xjf pypy3.9-v7.3.13-linux64.tar.bz2 && \
     ln -s /opt/pypy3.9-v7.3.13-linux64/bin/pypy3 /usr/local/bin/pypy
-
-# Install Clair3
+# Install Clair3 and dependencies
 RUN apt-get update && apt-get install -y \
-    cython3 \
-    python3-setuptools \
-    python3-dev \
-    && apt-get clean && \
-    pip3 install numpy pybind11
+    ninja-build \
+    && apt-get clean
 
 RUN cd /opt && \
     git clone https://github.com/HKU-BAL/Clair3.git && \
     cd Clair3 && \
-    bash install.sh && \
+    pip3 install -r requirements.txt && \
+    make install && \
     ln -s /opt/Clair3/run_clair3.sh /usr/local/bin/run_clair3.sh
-
 # Set working directory
 WORKDIR /workspace
