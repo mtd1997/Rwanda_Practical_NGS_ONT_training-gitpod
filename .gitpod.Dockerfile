@@ -22,10 +22,8 @@ RUN apt-get update && apt-get install -y \
     docker.io \
     samtools \
     bcftools \
-    pypy \
     cmake \
     libboost-all-dev \
-    htslib \
     && apt-get clean
 
 # Install Python packages
@@ -43,6 +41,12 @@ RUN cd /opt && \
     git clone https://github.com/lh3/minimap2.git && \
     cd minimap2 && make && \
     ln -s /opt/minimap2/minimap2 /usr/local/bin/minimap2
+
+# Install pypy manually
+RUN cd /opt && \
+    wget https://downloads.python.org/pypy/pypy3.9-v7.3.13-linux64.tar.bz2 && \
+    tar -xjf pypy3.9-v7.3.13-linux64.tar.bz2 && \
+    ln -s /opt/pypy3.9-v7.3.13-linux64/bin/pypy3 /usr/local/bin/pypy
 
 # Install Clair3
 RUN cd /opt && \
