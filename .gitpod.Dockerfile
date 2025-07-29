@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system packages including Docker
+# Install system packages
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
@@ -21,13 +21,18 @@ RUN apt-get update && apt-get install -y \
     openjdk-11-jdk \
     docker.io \
     samtools \
-    bcftools && \
-    apt-get clean
+    bcftools \
+    pypy \
+    cmake \
+    libboost-all-dev \
+    htslib \
+    && apt-get clean
 
-# Install NanoPlot and gdown
-RUN pip3 install NanoPlot gdown
+# Install Python packages
+RUN pip3 install --upgrade pip && \
+    pip3 install NanoPlot gdown whatshap
 
-# Install Porechop from source
+# Install Porechop
 RUN cd /opt && \
     git clone https://github.com/rrwick/Porechop.git && \
     cd Porechop && \
@@ -38,6 +43,13 @@ RUN cd /opt && \
     git clone https://github.com/lh3/minimap2.git && \
     cd minimap2 && make && \
     ln -s /opt/minimap2/minimap2 /usr/local/bin/minimap2
+
+# Install Clair3
+RUN cd /opt && \
+    git clone https://github.com/HKU-BAL/Clair3.git && \
+    cd Clair3 && \
+    bash install.sh && \
+    ln -s /opt/Clair3/run_clair3.sh /usr/local/bin/run_clair3.sh
 
 # Set working directory
 WORKDIR /workspace
