@@ -42,21 +42,10 @@ RUN cd /opt && \
     cd minimap2 && make && \
     ln -s /opt/minimap2/minimap2 /usr/local/bin/minimap2
 
-# Install pypy manually
-RUN cd /opt && \
-    wget https://downloads.python.org/pypy/pypy3.9-v7.3.13-linux64.tar.bz2 && \
-    tar -xjf pypy3.9-v7.3.13-linux64.tar.bz2 && \
-    ln -s /opt/pypy3.9-v7.3.13-linux64/bin/pypy3 /usr/local/bin/pypy
-# Install Clair3 and dependencies
-RUN apt-get update && apt-get install -y \
-    ninja-build \
-    && apt-get clean
+# Install Miniconda
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
+    bash miniconda.sh -b -p /opt/conda && \
+    rm miniconda.sh
 
-RUN cd /opt && \
-    git clone https://github.com/HKU-BAL/Clair3.git && \
-    cd Clair3 && \
-    pip3 install -r requirements.txt && \
-    make install && \
-    ln -s /opt/Clair3/run_clair3.sh /usr/local/bin/run_clair3.sh
-# Set working directory
+ENV PATH="/opt/conda/bin:$PATH"
 WORKDIR /workspace
