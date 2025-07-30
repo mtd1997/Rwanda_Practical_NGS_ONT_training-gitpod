@@ -2,23 +2,13 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Setup clair3 env
-    init: |
+  - name: Setup and activate clair3
+    command: |
+      source /opt/conda/etc/profile.d/conda.sh
       conda config --add channels defaults
       conda config --add channels bioconda
       conda config --add channels conda-forge
       conda create -n clair3 -c bioconda clair3 python=3.9.0 -y
-  - name: Activate clair3
-    command: |
-      conda init bash
       conda activate clair3
-  - name: Launch environment
-    command: |
       echo "Training environment is ready."
-      echo "Explore training notebooks or run commands in the terminal."
       bash
-
-vscode:
-  extensions:
-    - ms-python.python
-    - ms-toolsai.jupyter
