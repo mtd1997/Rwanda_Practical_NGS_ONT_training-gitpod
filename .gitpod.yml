@@ -5,6 +5,8 @@ tasks:
   - name: Setup and activate clair3
     command: |
       source /opt/conda/etc/profile.d/conda.sh
+      conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+      conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
       conda config --add channels defaults
       conda config --add channels bioconda
       conda config --add channels conda-forge
