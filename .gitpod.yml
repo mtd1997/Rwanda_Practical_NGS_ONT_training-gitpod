@@ -14,3 +14,12 @@ tasks:
       conda activate clair3
       echo "Training environment is ready."
       bash
+   - name: Install Java 21
+    init: |
+      wget https://download.oracle.com/java/21/archive/jdk-21.0.7_linux-x64_bin.tar.gz -O jdk21.tar.gz
+      tar -xzf jdk21.tar.gz
+      mv jdk-21* /workspace/jdk21
+  - name: Set Java
+    command: |
+      export JAVA_HOME="/workspace/jdk21"
+      export PATH="$JAVA_HOME/bin:$PATH"
