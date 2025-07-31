@@ -3,7 +3,7 @@ image:
 
 tasks:
   - name: Setup and activate clair3
-    command: |
+    init: |
       source /opt/conda/etc/profile.d/conda.sh
       conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
       conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
@@ -11,15 +11,26 @@ tasks:
       conda config --add channels bioconda
       conda config --add channels conda-forge
       conda create -n clair3 -c bioconda clair3 python=3.9.0 -y
+    command: |
+      source /opt/conda/etc/profile.d/conda.sh
       conda activate clair3
       echo "Training environment is ready."
       bash
-   - name: Install Java 21
+
+  - name: Install Java 21
     init: |
       wget https://download.oracle.com/java/21/archive/jdk-21.0.7_linux-x64_bin.tar.gz -O jdk21.tar.gz
       tar -xzf jdk21.tar.gz
-      mv jdk-21* /workspace/jdk21
+      mv jdk-21.0.7 /workspace/jdk21
+
   - name: Set Java
     command: |
       export JAVA_HOME="/workspace/jdk21"
       export PATH="$JAVA_HOME/bin:$PATH"
+      java -version
+
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-toolsai.jupyter
+
